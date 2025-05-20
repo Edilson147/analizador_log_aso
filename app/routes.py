@@ -1,6 +1,7 @@
 import os
 from flask import current_app, Blueprint, request, render_template, redirect
 from .log_parser import parse_log_file
+from flask import Flask, request, jsonify
 from flask import current_app as app
 import MySQLdb.cursors
 
@@ -107,8 +108,153 @@ def logs():
         logs = []
     return render_template("logs.html", logs=logs, tipo_seleccionado=tipo)
 
+@bp.route('/api/filtros', methods=['POST'])
+def filtrar():
+    datos = request.get_json()
+    cur = app.mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    # Extraer los filtros enviados
+    fecha = datos.get('fecha')
+    fecha_inicio = datos.get('fechaInicio')
+    fecha_fin = datos.get('fechaFin')
+    hora = datos.get('hora')
+    tipo = datos.get('select_categoria')
+    categorias_seleccionadas = datos.get('categorias_selecionadas')
+    if tipo == 'apache_access':
+       sql = construir_sql_access(datos)
+       cur.execute(sql)
+       logs = cur.fetchall()
+       print(sql)
+    elif tipo == 'apache_error':
+       sql = construir_sql_error(datos)
+       cur.execute(sql)
+       logs = cur.fetchall()
+       print(sql)
+    else:
+       sql = construir_sql_ftp(datos)
+       cur.execute(sql)
+       logs = cur.fetchall()
+       print(sql)
+    # Aquí iría tu lógica de filtrado (consultar BD, aplicar filtros, etc.)
+    # Simulación de respuesta:
+    resultados = {
+        "mensaje": "Filtros recibidos correctamente",
+        "datos_filtrados": logs,
+    }
+    print(resultados)
+    return jsonify(resultados)
 
+def construir_sql_error(filtros):
+    condiciones = []
 
+    # Filtros por categorías seleccionadas
+    categorias = filtros.get('categorias_selecionadas', {})
+
+    nivel = categorias.get('Nivel', [])
+    if nivel:
+        nivel_str = "', '".join(nivel)
+        condiciones.append(f"nivel IN ('{nivel_str}')")
+
+    modulo = categorias.get('Modulo', [])
+    if modulo:
+        modulo_str = "', '".join(modulo)
+        condiciones.append(f"modulo IN ('{modulo_str}')")
+
+    # Filtro por fecha exacta
+    fecha = filtros.get('fecha')
+    if fecha:
+        condiciones.append(f"DATE(fecha) = '{fecha}'")
+
+    # Filtro por rango de fechas
+    fecha_inicio = filtros.get('fechaInicio')
+    fecha_fin = filtros.get('fechaFin')
+    if fecha_inicio and fecha_fin:
+        condiciones.append(f"fecha BETWEEN '{fecha_inicio} 00:00:00' AND '{fecha_fin} 23:59:59'")
+
+    # Filtro por hora
+    hora = filtros.get('hora')
+    if hora:
+        condiciones.append(f"TIME(fecha) = '{hora}:00'")
+
+    # Armar la consulta
+    sql = "SELECT * FROM apache_error_logs"
+    if condiciones:
+        sql += " WHERE " + " AND ".join(condiciones)
+    return sql
+def construir_sql_ftp(filtros):
+    condiciones = []
+
+    # Filtros por categorías seleccionadas
+    categorias = filtros.get('categorias_selecionadas', {})
+
+    tipo_accion = categorias.get('Tipo accion', [])
+    if tipo_accion:
+        tipo_accion_str = "', '".join(tipo_accion)
+        condiciones.append(f"tipo_accion IN ('{tipo_accion_str}')")
+
+    # Filtro por fecha exacta
+    fecha = filtros.get('fecha')
+    if fecha:
+        condiciones.append(f"DATE(fecha) = '{fecha}'")
+
+    # Filtro por rango de fechas
+    fecha_inicio = filtros.get('fechaInicio')
+    fecha_fin = filtros.get('fechaFin')
+    if fecha_inicio and fecha_fin:
+        condiciones.append(f"fecha BETWEEN '{fecha_inicio} 00:00:00' AND '{fecha_fin} 23:59:59'")
+
+    # Filtro por hora
+    hora = filtros.get('hora')
+    if hora:
+        condiciones.append(f"TIME(fecha) = '{hora}:00'")
+
+    # Armar la consulta
+    sql = "SELECT * FROM ftp_logs"
+    if condiciones:
+        sql += " WHERE " + " AND ".join(condiciones)
+    return sql
+def construir_sql_access(filtros):
+    condiciones = []
+
+    # Filtros por categorías seleccionadas
+    categorias = filtros.get('categorias_selecionadas', {})
+
+    solicitud = categorias.get('Solicitud', [])
+    if solicitud:
+        metodos = "', '".join(solicitud)
+        condiciones.append(f"metodo IN ('{metodos}')")
+
+    codigos = categorias.get('Codigo Estado', [])
+    if codigos:
+        codigos_str = "', '".join(codigos)
+        condiciones.append(f"codigo_estado IN ('{codigos_str}')")
+
+    navegadores= categorias.get('Codigo Estado', [])
+    if navegadores:
+        navegadores_str = "', '".join(navegadores)
+        navegadores_ua = [f"user_agent LIKE '%{ua}%'" for ua in navegadores_str]
+        condiciones.append("(" + " OR ".join(navegadores_ua) + ")")
+    # Filtro por fecha exacta
+    fecha = filtros.get('fecha')
+    if fecha:
+        condiciones.append(f"DATE(fecha) = '{fecha}'")
+
+    # Filtro por rango de fechas
+    fecha_inicio = filtros.get('fechaInicio')
+    fecha_fin = filtros.get('fechaFin')
+    if fecha_inicio and fecha_fin:
+        condiciones.append(f"fecha BETWEEN '{fecha_inicio} 00:00:00' AND '{fecha_fin} 23:59:59'")
+
+    # Filtro por hora
+    hora = filtros.get('hora')
+    if hora:
+        condiciones.append(f"TIME(fecha) = '{hora}:00'")
+
+    # Armar la consulta
+    sql = "SELECT * FROM apache_access_logs"
+    if condiciones:
+        sql += " WHERE " + " AND ".join(condiciones)
+
+    return sql
 @bp.route('/ver_logs', methods=['POST','GET'])
 def ver_logs():
     if request.method == 'POST':
