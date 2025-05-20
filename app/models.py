@@ -14,8 +14,8 @@ def init_db(mysql):
         metodo VARCHAR(10),
         recurso TEXT,
         protocolo VARCHAR(10),
-        codigo_estado INT,
-        tamano_respuesta INT,
+        codigo_estado VARCHAR(10),
+        tamano_respuesta VARCHAR(10),
         user_agent TEXT,
         creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
@@ -27,8 +27,8 @@ def init_db(mysql):
         id INT AUTO_INCREMENT PRIMARY KEY,
         fecha DATETIME,
         nivel VARCHAR(50),
-        modul0 VARCHAR(100),
-        pid_id INT,
+        modulo VARCHAR(100),
+        pid_id VARCHAR(10),
         codigo_mensaje VARCHAR(20),
         mensaje TEXT,
         creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP

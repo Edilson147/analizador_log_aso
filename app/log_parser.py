@@ -17,12 +17,12 @@ ftp_regex = r'(?P<fecha>\w{3} \w{3}\s+\d{1,2} \d{2}:\d{2}:\d{2} \d{4}) \[pid (?P
 
 
 def parse_apache_line(line):
-    print("hola mundo")
+    
     match = re.match(apache_access_regex, line)
     if match:
         data = match.groupdict()
         fecha = datetime.strptime(data['fecha'], "%d/%b/%Y:%H:%M:%S %z")
-        print("hola mundo")
+        
         return {
             "fecha": fecha or None,
             "ip": data['ip'] or "-",
