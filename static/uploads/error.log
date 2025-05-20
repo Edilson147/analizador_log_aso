@@ -1,0 +1,4 @@
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using ::1. Set the 'ServerName' directive globally to suppress this message
+[Thu May 15 17:03:11.664095 2025] [ssl:warn] [pid 11030] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu May 15 17:03:11.685665 2025] [mpm_prefork:notice] [pid 11030] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Thu May 15 17:03:11.685732 2025] [core:notice] [pid 11030] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'

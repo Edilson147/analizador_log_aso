@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Página Principal{% endblock %}
+
+{% block content %}
+<div class="w-full flex justify-center intems-center flex-col p-4">
+    <p class="text-3xl text-gray-900 font-bold dark:text-black not-italic">Analizador de Logs</p>
+    <form method="POST" action="/logs" enctype="multipart/form-data">
+        <div class="w-full flex  justify-between  py-2">
+            <!-- Campo de búsqueda -->
+            <div class="flex w-full justify-start order-1">
+                <input type="text" name="busqueda" value="{{ termino_busqueda | default('') }}"
+                    placeholder="Buscar en logs..."
+                    class="w-1/3 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            </div>
+            <!-- Fila de botones y selección -->
+            <div class=" flex justify-center items-center space-x-5 order-2">
+                <select name="tipo" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <option value="apache_access" {% if tipo_seleccionado=='apache_access' %}selected{% endif %}>
+                        Apache access</option>
+                    <option value="apache_error" {% if tipo_seleccionado=='apache_error' %}selected{% endif %}>
+                        Apache error</option>
+                    <option value="ftp" {% if tipo_seleccionado=='ftp' %}selected{% endif %}>FTP</option>
+                </select>
+
+                <button type="submit" name="accion" value="analizar"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Analizar
+                </button>
+
+                <button type="submit" name="accion" value="actualizar"
+                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                    Actualizar
+                </button>
+            </div>
+
+
+        </div>
+    </form>
+</div>
+{% endblock %}

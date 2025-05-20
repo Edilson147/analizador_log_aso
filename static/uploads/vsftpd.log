@@ -1,0 +1,39 @@
+Fri May 16 20:44:52 2025 [pid 10196] CONNECT: Client "::1"
+Fri May 16 20:44:52 2025 [pid 10196] FTP response: Client "::1", "220 (vsFTPd 3.0.5)"
+Fri May 16 20:44:54 2025 [pid 10196] FTP command: Client "::1", "USER publica"
+Fri May 16 20:44:54 2025 [pid 10196] [publica] FTP response: Client "::1", "331 Please specify the password."
+Fri May 16 20:44:57 2025 [pid 10196] [publica] FTP command: Client "::1", "PASS <password>"
+Fri May 16 20:44:59 2025 [pid 10195] [publica] FAIL LOGIN: Client "::1"
+Fri May 16 20:45:00 2025 [pid 10196] [publica] FTP response: Client "::1", "530 Login incorrect."
+Fri May 16 20:45:04 2025 [pid 10196] FTP command: Client "::1", "QUIT"
+Fri May 16 20:45:04 2025 [pid 10196] FTP response: Client "::1", "221 Goodbye."
+Fri May 16 20:45:05 2025 [pid 10260] CONNECT: Client "::1"
+Fri May 16 20:45:05 2025 [pid 10260] FTP response: Client "::1", "220 (vsFTPd 3.0.5)"
+Fri May 16 20:45:09 2025 [pid 10260] FTP command: Client "::1", "USER publica"
+Fri May 16 20:45:09 2025 [pid 10260] [publica] FTP response: Client "::1", "331 Please specify the password."
+Fri May 16 20:45:11 2025 [pid 10260] [publica] FTP command: Client "::1", "PASS <password>"
+Fri May 16 20:45:12 2025 [pid 10259] [publica] OK LOGIN: Client "::1"
+Fri May 16 20:45:12 2025 [pid 10275] [publica] FTP response: Client "::1", "230 Login successful."
+Fri May 16 20:45:12 2025 [pid 10275] [publica] FTP command: Client "::1", "SYST"
+Fri May 16 20:45:12 2025 [pid 10275] [publica] FTP response: Client "::1", "215 UNIX Type: L8"
+Fri May 16 20:45:12 2025 [pid 10275] [publica] FTP command: Client "::1", "FEAT"
+Fri May 16 20:45:12 2025 [pid 10275] [publica] FTP response: Client "::1", "211-Features:"
+Fri May 16 20:45:12 2025 [pid 10275] [publica] FTP response: Client "::1", " EPRT
+"
+Fri May 16 20:45:12 2025 [pid 10275] [publica] FTP response: Client "::1", " EPSV
+"
+Fri May 16 20:45:12 2025 [pid 10275] [publica] FTP response: Client "::1", " MDTM
+"
+Fri May 16 20:45:12 2025 [pid 10275] [publica] FTP response: Client "::1", " PASV
+"
+Fri May 16 20:45:12 2025 [pid 10275] [publica] FTP response: Client "::1", " REST STREAM
+"
+Fri May 16 20:45:12 2025 [pid 10275] [publica] FTP response: Client "::1", " SIZE
+"
+Fri May 16 20:45:12 2025 [pid 10275] [publica] FTP response: Client "::1", " TVFS
+"
+Fri May 16 20:45:12 2025 [pid 10275] [publica] FTP response: Client "::1", " UTF8
+"
+Fri May 16 20:45:12 2025 [pid 10275] [publica] FTP response: Client "::1", "211 End"
+Fri May 16 20:45:16 2025 [pid 10275] [publica] FTP command: Client "::1", "QUIT"
+Fri May 16 20:45:16 2025 [pid 10275] [publica] FTP response: Client "::1", "221 Goodbye."

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Página Principal{% endblock %}
+
+{% block content %}
+<div class="flex justify-center items-center flex-col w-full h-full">
+    <div class="w-full flex justify-center intems-center flex-col p-4">
+        <p class="text-3xl text-gray-900 font-bold dark:text-black not-italic">Analizador de Logs</p>
+        <form method="POST" action="/logs" enctype="multipart/form-data">
+            <div class="w-full flex  justify-between  py-2">
+                <!-- Campo de búsqueda -->
+
+                <label for="default-search"
+                    class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div class="relative w-80">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
+                    </div>
+                    <input type="search" id="default-search" name="texto_ingresado"
+                        class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Buscar, Logs..." />
+                    <button type="submit" name="accion" value="buscador"
+                        class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                </div>
+
+                <!-- Fila de botones y selección -->
+                <div class=" flex justify-center items-center space-x-5 order-2">
+                    <select name="tipo" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <option value="apache_access" {% if tipo_seleccionado=='apache_access' %}selected{% endif %}>
+                            Apache access</option>
+                        <option value="apache_error" {% if tipo_seleccionado=='apache_error' %}selected{% endif %}>
+                            Apache error</option>
+                        <option value="ftp" {% if tipo_seleccionado=='ftp' %}selected{% endif %}>FTP</option>
+                    </select>
+
+                    <button type="submit" name="accion" value="analizar"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Analizar
+                    </button>
+
+                    <button type="submit" name="accion" value="actualizar"
+                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                        Actualizar
+                    </button>
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+    <div class="w-full mx-auto p-2 ">
+        {% if logs %}
+        <div class="relative overflow-x-auto overflow-y-auto max-h-[700px] shadow-md rounded-md">
+            <table class="w-full text-xs text-left rtl:text-right text-gray-600 dark:text-gray-300">
+                <thead class="text-[10px] text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-300">
+                    <tr>
+                        {% for col in logs[0].keys() %}
+                        <th scope="col" class="px-3 py-2">{{ col }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in logs %}
+                    <tr
+                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        {% for item in log.values() %}
+                        <td class="px-3 py-2 whitespace-nowrap">{{ item }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% else %}
+        <p>No se encontraron registros para mostrar.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

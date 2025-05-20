@@ -1,0 +1,103 @@
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using ::1. Set the 'ServerName' directive globally to suppress this message
+[Thu May 15 17:03:11.664095 2025] [ssl:warn] [pid 11030] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu May 15 17:03:11.685665 2025] [mpm_prefork:notice] [pid 11030] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Thu May 15 17:03:11.685732 2025] [core:notice] [pid 11030] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using ::1. Set the 'ServerName' directive globally to suppress this message
+[Thu May 15 19:23:30.345310 2025] [ssl:warn] [pid 2940] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu May 15 19:23:30.354989 2025] [mpm_prefork:notice] [pid 2940] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Thu May 15 19:23:30.355056 2025] [core:notice] [pid 2940] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
+[Thu May 15 19:51:02.762400 2025] [mpm_prefork:notice] [pid 2940] AH00170: caught SIGWINCH, shutting down gracefully
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using ::1. Set the 'ServerName' directive globally to suppress this message
+[Thu May 15 19:51:03.153936 2025] [ssl:warn] [pid 5957] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu May 15 19:51:03.174123 2025] [mpm_prefork:notice] [pid 5957] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Thu May 15 19:51:03.174235 2025] [core:notice] [pid 5957] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
+[Thu May 15 19:52:14.032419 2025] [mpm_prefork:notice] [pid 5957] AH00170: caught SIGWINCH, shutting down gracefully
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using ::1. Set the 'ServerName' directive globally to suppress this message
+[Thu May 15 19:52:14.249491 2025] [ssl:warn] [pid 6200] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu May 15 19:52:14.268649 2025] [mpm_prefork:notice] [pid 6200] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Thu May 15 19:52:14.268742 2025] [core:notice] [pid 6200] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
+[Thu May 15 20:00:34.174506 2025] [mpm_prefork:notice] [pid 6200] AH00170: caught SIGWINCH, shutting down gracefully
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using ::1. Set the 'ServerName' directive globally to suppress this message
+[Thu May 15 20:00:34.437904 2025] [ssl:warn] [pid 7196] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu May 15 20:00:34.458376 2025] [mpm_prefork:notice] [pid 7196] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Thu May 15 20:00:34.458456 2025] [core:notice] [pid 7196] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
+[Thu May 15 20:19:41.589472 2025] [mpm_prefork:notice] [pid 7196] AH00170: caught SIGWINCH, shutting down gracefully
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using ::1. Set the 'ServerName' directive globally to suppress this message
+[Thu May 15 20:19:41.808186 2025] [ssl:warn] [pid 8662] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu May 15 20:19:41.814152 2025] [mpm_prefork:notice] [pid 8662] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Thu May 15 20:19:41.814222 2025] [core:notice] [pid 8662] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
+[Thu May 15 20:25:16.200604 2025] [mpm_prefork:notice] [pid 8662] AH00170: caught SIGWINCH, shutting down gracefully
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using ::1. Set the 'ServerName' directive globally to suppress this message
+[Thu May 15 20:25:16.439068 2025] [ssl:warn] [pid 9455] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu May 15 20:25:16.444890 2025] [mpm_prefork:notice] [pid 9455] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Thu May 15 20:25:16.444960 2025] [core:notice] [pid 9455] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
+[Thu May 15 20:32:28.654861 2025] [mpm_prefork:notice] [pid 9455] AH00170: caught SIGWINCH, shutting down gracefully
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using ::1. Set the 'ServerName' directive globally to suppress this message
+[Thu May 15 20:32:28.923503 2025] [ssl:warn] [pid 10207] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu May 15 20:32:28.934797 2025] [mpm_prefork:notice] [pid 10207] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Thu May 15 20:32:28.934899 2025] [core:notice] [pid 10207] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
+[Thu May 15 20:35:15.489809 2025] [mpm_prefork:notice] [pid 10207] AH00170: caught SIGWINCH, shutting down gracefully
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using ::1. Set the 'ServerName' directive globally to suppress this message
+[Thu May 15 20:35:15.712777 2025] [ssl:warn] [pid 10508] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu May 15 20:35:15.733155 2025] [mpm_prefork:notice] [pid 10508] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Thu May 15 20:35:15.733222 2025] [core:notice] [pid 10508] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
+[Thu May 15 20:39:57.787844 2025] [mpm_prefork:notice] [pid 10508] AH00170: caught SIGWINCH, shutting down gracefully
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using ::1. Set the 'ServerName' directive globally to suppress this message
+[Thu May 15 20:39:58.018125 2025] [ssl:warn] [pid 10908] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu May 15 20:39:58.031453 2025] [mpm_prefork:notice] [pid 10908] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Thu May 15 20:39:58.031555 2025] [core:notice] [pid 10908] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
+[Thu May 15 20:42:47.946630 2025] [mpm_prefork:notice] [pid 10908] AH00170: caught SIGWINCH, shutting down gracefully
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using ::1. Set the 'ServerName' directive globally to suppress this message
+[Thu May 15 20:42:48.179697 2025] [ssl:warn] [pid 11083] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu May 15 20:42:48.193947 2025] [mpm_prefork:notice] [pid 11083] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Thu May 15 20:42:48.194034 2025] [core:notice] [pid 11083] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
+[Thu May 15 20:44:08.534214 2025] [mpm_prefork:notice] [pid 11083] AH00170: caught SIGWINCH, shutting down gracefully
+AH00557: httpd-prefork: apr_sockaddr_info_get() failed for bolivar
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+[Thu May 15 20:44:38.837886 2025] [ssl:warn] [pid 11495] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu May 15 20:44:38.848036 2025] [mpm_prefork:notice] [pid 11495] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Thu May 15 20:44:38.848107 2025] [core:notice] [pid 11495] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
+[Thu May 15 20:46:46.642512 2025] [mpm_prefork:notice] [pid 11495] AH00170: caught SIGWINCH, shutting down gracefully
+AH00557: httpd-prefork: apr_sockaddr_info_get() failed for bolivar
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+[Thu May 15 20:47:17.082014 2025] [ssl:warn] [pid 11756] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu May 15 20:47:17.125285 2025] [mpm_prefork:notice] [pid 11756] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Thu May 15 20:47:17.125381 2025] [core:notice] [pid 11756] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
+[Thu May 15 20:51:51.301618 2025] [mpm_prefork:notice] [pid 11756] AH00170: caught SIGWINCH, shutting down gracefully
+AH00557: httpd-prefork: apr_sockaddr_info_get() failed for bolivar
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+[Thu May 15 20:52:21.655337 2025] [ssl:warn] [pid 12193] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu May 15 20:52:21.661475 2025] [mpm_prefork:notice] [pid 12193] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Thu May 15 20:52:21.661553 2025] [core:notice] [pid 12193] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
+[Thu May 15 20:54:48.237573 2025] [mpm_prefork:notice] [pid 12193] AH00170: caught SIGWINCH, shutting down gracefully
+AH00557: httpd-prefork: apr_sockaddr_info_get() failed for bolivar
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+[Thu May 15 20:55:18.745742 2025] [ssl:warn] [pid 12616] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu May 15 20:55:18.773625 2025] [mpm_prefork:notice] [pid 12616] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Thu May 15 20:55:18.773874 2025] [core:notice] [pid 12616] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
+[Thu May 15 20:59:57.866776 2025] [mpm_prefork:notice] [pid 12616] AH00170: caught SIGWINCH, shutting down gracefully
+AH00557: httpd-prefork: apr_sockaddr_info_get() failed for bolivar
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+[Thu May 15 21:00:28.272403 2025] [ssl:warn] [pid 13200] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu May 15 21:00:28.290058 2025] [mpm_prefork:notice] [pid 13200] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Thu May 15 21:00:28.290150 2025] [core:notice] [pid 13200] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
+[Thu May 15 21:18:48.712760 2025] [mpm_prefork:notice] [pid 13200] AH00170: caught SIGWINCH, shutting down gracefully
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using ::1. Set the 'ServerName' directive globally to suppress this message
+[Thu May 15 21:20:20.765423 2025] [ssl:warn] [pid 1508] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu May 15 21:20:20.773160 2025] [mpm_prefork:notice] [pid 1508] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Thu May 15 21:20:20.773217 2025] [core:notice] [pid 1508] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
+[Thu May 15 21:26:53.384187 2025] [mpm_prefork:notice] [pid 1508] AH00170: caught SIGWINCH, shutting down gracefully
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using ::1. Set the 'ServerName' directive globally to suppress this message
+[Thu May 15 21:26:53.605231 2025] [ssl:warn] [pid 4179] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu May 15 21:26:53.610757 2025] [mpm_prefork:notice] [pid 4179] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Thu May 15 21:26:53.610843 2025] [core:notice] [pid 4179] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
+AH00557: httpd-prefork: apr_sockaddr_info_get() failed for bolivar
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+[Fri May 16 19:10:52.018161 2025] [ssl:warn] [pid 1449] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Fri May 16 19:10:52.033464 2025] [mpm_prefork:notice] [pid 1449] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Fri May 16 19:10:52.033686 2025] [core:notice] [pid 1449] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
+AH00557: httpd-prefork: apr_sockaddr_info_get() failed for bolivar
+AH00558: httpd-prefork: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+[Sun May 18 07:28:12.268851 2025] [ssl:warn] [pid 1453] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Sun May 18 07:28:12.274235 2025] [mpm_prefork:notice] [pid 1453] AH00163: Apache/2.4.58 (Linux/SUSE) OpenSSL/3.1.4 configured -- resuming normal operations
+[Sun May 18 07:28:12.274382 2025] [core:notice] [pid 1453] AH00094: Command line: '/usr/sbin/httpd-prefork -D SYSCONFIG -C PidFile /run/httpd.pid -C Include /etc/apache2/sysconfig.d//loadmodule.conf -C Include /etc/apache2/sysconfig.d//global.conf -f /etc/apache2/httpd.conf -c Include /etc/apache2/sysconfig.d//include.conf -D SYSTEMD -D FOREGROUND'
