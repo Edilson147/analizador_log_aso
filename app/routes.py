@@ -118,29 +118,35 @@ def filtrar():
     fecha_fin = datos.get('fechaFin')
     hora = datos.get('hora')
     tipo = datos.get('select_categoria')
+    print(tipo)
     categorias_seleccionadas = datos.get('categorias_selecionadas')
+    print(datos)
     if tipo == 'apache_access':
        sql = construir_sql_access(datos)
        cur.execute(sql)
        logs = cur.fetchall()
+       app.mysql.connection.commit()
        print(sql)
     elif tipo == 'apache_error':
        sql = construir_sql_error(datos)
        cur.execute(sql)
        logs = cur.fetchall()
+       app.mysql.connection.commit()
        print(sql)
-    else:
+    elif tipo =='ftp':
        sql = construir_sql_ftp(datos)
        cur.execute(sql)
        logs = cur.fetchall()
+       app.mysql.connection.commit()
        print(sql)
+    else:
+       logs=datos
     # Aquí iría tu lógica de filtrado (consultar BD, aplicar filtros, etc.)
     # Simulación de respuesta:
     resultados = {
         "mensaje": "Filtros recibidos correctamente",
         "datos_filtrados": logs,
     }
-    print(resultados)
     return jsonify(resultados)
 
 def construir_sql_error(filtros):
@@ -228,10 +234,9 @@ def construir_sql_access(filtros):
         codigos_str = "', '".join(codigos)
         condiciones.append(f"codigo_estado IN ('{codigos_str}')")
 
-    navegadores= categorias.get('Codigo Estado', [])
+    navegadores = categorias.get('Codigo Estado', [])
     if navegadores:
-        navegadores_str = "', '".join(navegadores)
-        navegadores_ua = [f"user_agent LIKE '%{ua}%'" for ua in navegadores_str]
+        navegadores_ua = [f"user_agent LIKE '%{ua}%'" for ua in navegadores]
         condiciones.append("(" + " OR ".join(navegadores_ua) + ")")
     # Filtro por fecha exacta
     fecha = filtros.get('fecha')

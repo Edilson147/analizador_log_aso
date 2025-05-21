@@ -3,70 +3,77 @@
 {% block title %}Página Principal{% endblock %}
 
 {% block content %}
-<!-- Botón para abrir el panel -->
-<button id="toggleFilters" class="bg-blue-600 text-white px-4 py-2 rounded">Filtrar por palabras clave</button>
+<div class="w-full flex flex-row  p-4 ">
+    <select id="categoriaSelect" name="tipo"
+        class="bg-blue-500 hover:bg-blue-700  h-10 w-80 text-white font-bold py-2 px-4 rounded">
+        <option value="opcion">Seleccione</option>
+        <option value="apache_access" {% if tipo_seleccionado=='apache_access' %}selected{% endif %}>
+            Apache access</option>
+        <option value="apache_error" {% if tipo_seleccionado=='apache_error' %}selected{% endif %}>
+            Apache error</option>
+        <option value="ftp" {% if tipo_seleccionado=='ftp' %}selected{% endif %}>FTP</option>
+    </select>
+    <!-- Botón para abrir el panel -->
 
-<!-- Panel de filtros -->
 
-<div id="filterPanel" class="mt-4 w-64 bg-gray-800 text-white rounded p-4 shadow hidden">
-    <div class="flex justify-between items-center mb-2">
-        <h2 class="font-bold">Filtros</h2>
-        <div class="space-x-2">
-            <button id="saveView" class="text-blue-400 hover:underline">Filtrar</button>
+    <!-- Panel de filtros -->
+    <div class="w-full bg-gray-800 flex flex-column text-white rounded px-4 shadow">
+        <div id="filterPanel" class=" w-[600px] bg-gray-800 text-white rounded px-4 py-4shadow">
+            <div class="flex justify-between items-center mb-2">
+                <h2 class="font-bold">Filtros</h2>
+                <div class="space-x-2">
+                    <button id="saveView" class="text-blue-400 hover:underline">Filtrar</button>
+                </div>
+            </div>
+
+            <!-- Fecha exacta -->
+            <div class="mt-4">
+                <label class="block font-semibold mb-1" for="fecha">Fecha:</label>
+                <input type="date" id="fecha" name="fecha"
+                    class="w-full bg-gray-700 text-white border border-gray-600 rounded px-2 py-1">
+            </div>
+
+            <!-- Rango de fechas -->
+            <div class="mt-4">
+                <label class="block font-semibold mb-1">Rango de fechas:</label>
+                <div class="flex gap-2">
+                    <input type="date" id="fechaInicio" name="fechaInicio"
+                        class="w-1/2 bg-gray-700 text-white border border-gray-600 rounded px-2 py-1">
+                    <input type="date" id="fechaFin" name="fechaFin"
+                        class="w-1/2 bg-gray-700 text-white border border-gray-600 rounded px-2 py-1">
+                </div>
+            </div>
+
+            <!-- Hora -->
+            <div class="mt-4">
+                <label class="block font-semibold mb-1" for="hora">Hora:</label>
+                <input type="time" id="hora" name="hora"
+                    class="w-full bg-gray-700 text-white border border-gray-600 rounded px-2 py-1">
+            </div>
+
         </div>
-    </div>
-
-    <!-- Fecha exacta -->
-    <div class="mt-4">
-        <label class="block font-semibold mb-1" for="fecha">Fecha:</label>
-        <input type="date" id="fecha" name="fecha"
-            class="w-full bg-gray-700 text-white border border-gray-600 rounded px-2 py-1">
-    </div>
-
-    <!-- Rango de fechas -->
-    <div class="mt-4">
-        <label class="block font-semibold mb-1">Rango de fechas:</label>
-        <div class="flex gap-2">
-            <input type="date" id="fechaInicio" name="fechaInicio"
-                class="w-1/2 bg-gray-700 text-white border border-gray-600 rounded px-2 py-1">
-            <input type="date" id="fechaFin" name="fechaFin"
-                class="w-1/2 bg-gray-700 text-white border border-gray-600 rounded px-2 py-1">
+        <div>
+            <label class="w-full bg-gray-700 text-white  ">
+                Categoría
+            </label>
+            <div id="categoryList" class=" grid grid-cols-4 gap-4 ">
+                <!-- ... otros elementos -->
+            </div>
         </div>
+
     </div>
 
-    <!-- Hora -->
-    <div class="mt-4">
-        <label class="block font-semibold mb-1" for="hora">Hora:</label>
-        <input type="time" id="hora" name="hora"
-            class="w-full bg-gray-700 text-white border border-gray-600 rounded px-2 py-1">
-    </div>
-    <div>
-        <button id="toggleCategory" class="w-full text-left font-semibold flex justify-between items-center">
-            Categoría
-            <span id="arrow" class="transition-transform">&#9662;</span>
-        </button>
-        <div id="categoryList" class="mt-2 space-y-1 hidden">
-            <!-- ... otros elementos -->
-        </div>
-    </div>
 
 </div>
-<select id="categoriaSelect" name="tipo" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-    <option value="por defecto">
-        Seleccione una opsion</option>
-    <option value="apache_access" {% if tipo_seleccionado=='apache_access' %}selected{% endif %}>
-        Apache access</option>
-    <option value="apache_error" {% if tipo_seleccionado=='apache_error' %}selected{% endif %}>
-        Apache error</option>
-    <option value="ftp" {% if tipo_seleccionado=='ftp' %}selected{% endif %}>FTP</option>
-</select>
-
 <table id="tabla-logs" class="w-full text-xs text-left text-gray-600">
     <thead>
         <tr id="tabla-header"></tr>
     </thead>
     <tbody id="tabla-body"></tbody>
 </table>
+
+
+
 
 <!-- Script clásico -->
 <script>
@@ -76,19 +83,6 @@
     const categoryList = document.getElementById("categoryList");
     const arrow = document.getElementById("arrow");
     const saveView = document.getElementById("saveView");
-
-    toggleFilters.addEventListener("click", () => {
-        filterPanel.classList.toggle("hidden");
-    });
-
-    toggleCategory.addEventListener("click", () => {
-        categoryList.classList.toggle("hidden");
-        arrow.classList.toggle("rotate-180");
-    });
-
-    saveView.addEventListener("click", () => {
-        filterPanel.classList.add("hidden");
-    });
 
     function agruparPorCategoria(diccionario, valoresArray) {
         const resultado = {};
@@ -124,10 +118,12 @@
             const categoria_navegador = ['Chrome', 'Edge', 'Firefox', 'Safari', 'Opera', 'Internet Explorer'];
             categorias_access.forEach((categoria, index) => {
                 // Crear título de categoría
+                const contenedor_secion = document.createElement('div');
                 const title = document.createElement('div');
-                title.className = 'font-medium mt-2 flex ';
+                title.className = 'font-medium mt-2';
                 title.textContent = categoria;
-                categoryList.appendChild(title);
+                contenedor_secion.className = 'mt-2';
+                contenedor_secion.appendChild(title);
 
                 // Obtener subcategorías según índice
                 let subcategorias = [];
@@ -147,8 +143,9 @@
 
                     label.appendChild(checkbox);
                     label.appendChild(document.createTextNode(sub));
-                    categoryList.appendChild(label);
+                    contenedor_secion.appendChild(label);
                 });
+                categoryList.appendChild(contenedor_secion)
             });
 
         } else if (valor === 'apache_error') {
@@ -158,10 +155,13 @@
 
             categorias_error.forEach((categoria, index) => {
                 // Crear título de categoría
+                const contenedor_secion = document.createElement('div');
                 const title = document.createElement('div');
-                title.className = 'font-medium mt-2 flex ';
+                title.className = 'font-medium mt-2 flex bg-blue';
+                contenedor_secion.className = ' mt-2 ';
                 title.textContent = categoria;
-                categoryList.appendChild(title);
+
+                contenedor_secion.appendChild(title);
 
                 // Obtener subcategorías según índice
                 let subcategorias = [];
@@ -180,8 +180,9 @@
 
                     label.appendChild(checkbox);
                     label.appendChild(document.createTextNode(sub));
-                    categoryList.appendChild(label);
+                    contenedor_secion.appendChild(label);
                 });
+                categoryList.appendChild(contenedor_secion);
             });
 
         } else if (valor === 'ftp') {
@@ -189,10 +190,12 @@
             const categoria_accion = ['FTP command', 'FTP response', 'FAIL LOGIN', 'CONNECTED', 'OK LOGIN', 'FAIL DOWNLOAD', 'DENIED'];
             categorias_ftp.forEach((categoria, index) => {
                 // Crear título de categoría
+                const contenedor_secion = document.createElement('div');
                 const title = document.createElement('div');
                 title.className = 'font-medium mt-2 flex ';
+                contenedor_secion.className = ' mt-2 ';
                 title.textContent = categoria;
-                categoryList.appendChild(title);
+                contenedor_secion.appendChild(title);
 
                 // Obtener subcategorías según índice
                 let subcategorias = [];
@@ -210,8 +213,9 @@
 
                     label.appendChild(checkbox);
                     label.appendChild(document.createTextNode(sub));
-                    categoryList.appendChild(label);
+                    contenedor_secion.appendChild(label);
                 });
+                categoryList.appendChild(contenedor_secion);
             });
 
         }
@@ -229,7 +233,7 @@
         // Obtener rango de fechas
         const fechaInicio = document.getElementById('fechaInicio').value;
         const fechaFin = document.getElementById('fechaFin').value;
-
+        console.log(select_categoria);
         // Obtener hora
         const hora = document.getElementById('hora').value;
         let categorias_selecionadas = {};
@@ -274,7 +278,7 @@
         fetch('/api/filtros', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ categorias_selecionadas })
+            body: JSON.stringify(filtros)
         })
             .then(res => res.json())
             .then(data => {
