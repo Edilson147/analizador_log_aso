@@ -3,34 +3,56 @@
 {% block title %}Página Principal{% endblock %}
 
 {% block content %}
-<div class="w-full flex flex-row  p-4 ">
-    <select id="categoriaSelect" name="tipo"
-        class="bg-blue-500 hover:bg-blue-700  h-10 w-80 text-white font-bold py-2 px-4 rounded">
-        <option value="opcion">Seleccione</option>
-        <option value="apache_access" {% if tipo_seleccionado=='apache_access' %}selected{% endif %}>
-            Apache access</option>
-        <option value="apache_error" {% if tipo_seleccionado=='apache_error' %}selected{% endif %}>
-            Apache error</option>
-        <option value="ftp" {% if tipo_seleccionado=='ftp' %}selected{% endif %}>FTP</option>
-    </select>
-    <!-- Botón para abrir el panel -->
+<div class="w-full flex flex-wrap  space-y-4  mt-2 p-4 ">
+    <div class="flex w-full">
+        <div class="flex w-1/4 space-x-4">
+            <select id="categoriaSelect" name="tipo"
+                class="  hover:bg-gray-100 bg-white border border-gray-600  h-10 w-1/2 font-bold  rounded">
+                <option value="opcion">Seleccione</option>
+                <option value="apache_access" {% if tipo_seleccionado=='apache_access' %}selected{% endif %}>
+                    Apache access</option>
+                <option value="apache_error" {% if tipo_seleccionado=='apache_error' %}selected{% endif %}>
+                    Apache error</option>
+                <option value="ftp" {% if tipo_seleccionado=='ftp' %}selected{% endif %}>FTP</option>
+            </select>
+            <div class="space-x-2 flex w-1/2">
+                <button id="saveView"
+                    class=" hover:bg-gray-100 bg-white border border-gray-600  h-10 w-1/2 font-bold  rounded">Filtrar</button>
+            </div>
+        </div>
+
+        <!-- Botón para abrir el panel -->
+        <div class="flex space-x-2 w-full ">
+            <div class=" flex w-1/2">
+                <button id="busqueda_basica" onclick="mostrarElementosBasico()"
+                    class=" hover:bg-gray-100 bg-white border border-gray-600  h-10 w-full font-bold  rounded">Busqueda
+                    Basica</button>
+            </div>
+            <div class=" flex w-1/2">
+                <button id="busqueda_avansada" onclick="mostrarElementosAvansado()"
+                    class=" hover:bg-gray-100 bg-white border border-gray-600  h-10 w-full font-bold  rounded">Busqueda
+                    Avansada</button>
+            </div>
+
+        </div>
+
+
+    </div>
 
 
     <!-- Panel de filtros -->
-    <div class="w-full bg-gray-800 flex flex-column text-white rounded px-4 shadow">
-        <div id="filterPanel" class=" w-[600px] bg-gray-800 text-white rounded px-4 py-4shadow">
+    <div id="seccion_avansada" class=" w-full bg-gray-800 flex bg-white flex-column  rounded shadow">
+        <div id="filterPanel" class=" w-1/2 bg-white  rounded px-4 py-4 ">
             <div class="flex justify-between items-center mb-2">
                 <h2 class="font-bold">Filtros</h2>
-                <div class="space-x-2">
-                    <button id="saveView" class="text-blue-400 hover:underline">Filtrar</button>
-                </div>
+
             </div>
 
             <!-- Fecha exacta -->
             <div class="mt-4">
                 <label class="block font-semibold mb-1" for="fecha">Fecha:</label>
                 <input type="date" id="fecha" name="fecha"
-                    class="w-full bg-gray-700 text-white border border-gray-600 rounded px-2 py-1">
+                    class="w-full bg-white  border border-gray-600 rounded px-2 py-1">
             </div>
 
             <!-- Rango de fechas -->
@@ -38,287 +60,571 @@
                 <label class="block font-semibold mb-1">Rango de fechas:</label>
                 <div class="flex gap-2">
                     <input type="date" id="fechaInicio" name="fechaInicio"
-                        class="w-1/2 bg-gray-700 text-white border border-gray-600 rounded px-2 py-1">
+                        class="w-1/2   border border-gray-600 rounded px-2 py-1">
                     <input type="date" id="fechaFin" name="fechaFin"
-                        class="w-1/2 bg-gray-700 text-white border border-gray-600 rounded px-2 py-1">
+                        class="w-1/2   border border-gray-600 rounded px-2 py-1">
                 </div>
             </div>
 
             <!-- Hora -->
             <div class="mt-4">
                 <label class="block font-semibold mb-1" for="hora">Hora:</label>
-                <input type="time" id="hora" name="hora"
-                    class="w-full bg-gray-700 text-white border border-gray-600 rounded px-2 py-1">
+                <input type="time" id="hora" name="hora" class="w-full  border border-gray-600 rounded px-2 py-1">
             </div>
 
         </div>
-        <div>
-            <label class="w-full bg-gray-700 text-white  ">
-                Categoría
-            </label>
-            <div id="categoryList" class=" grid grid-cols-4 gap-4 ">
+        <div class="w-1/2 bg-white  rounded px-4 py-4">
+            <h2 class="font-bold">categoria</h2>
+            <div id="categoryList" class=" w-full flex flex-column justify-between">
                 <!-- ... otros elementos -->
             </div>
         </div>
 
     </div>
+    <div class="hidden w-full flex justify-end rounded-lg  py-2 " id="seccion_basica">
+        <div class="w-1/2 h-10 p-4">
+            <div class="relative">
+                <input type="search" id="default-search" name="texto_ingresado"
+                    class="w-full h-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md pl-3 pr-28 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                    placeholder="Buscar, Logs..." />
+                <button id="boton_buscar" type="submit" class=" absolute top-1 right-1 flex items-center rounded bg-slate-800 py-1 px-2.5 border
+                            border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow
+                            focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700
+                            active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                        class="w-4 h-4 mr-2">
+                        <path fill-rule="evenodd"
+                            d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z"
+                            clip-rule="evenodd" />
+                    </svg>
+
+                    Search
+                </button>
+            </div>
+        </div>
+
+    </div>
+    <div class="w-full mx-auto p-2 space-y-2">
+        <button type="submit" name="accion" value="actualizar" onclick="copiarSeleccionados()"
+            class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+            <span id="default-message">
+                <span class="inline-flex items-center">
+                    <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 18 20">
+                        <path
+                            d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z" />
+                    </svg>
+                    <span class="text-xs font-semibold">Copy</span>
+                </span>
+            </span>
+        </button>
+        <div class="relative overflow-x-auto py-4 overflow-y-auto w-full max-h-[220px] rounded-md">
+            <table id="tabla_logs" class="w-full text-xs text-left rtl:text-right text-gray-600 dark:text-gray-300">
+                <thead class="text-[10px] text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-300">
+
+                    <tr id="tabla-header"></tr>
+                </thead>
+                <tbody id="tabla-body"></tbody>
+            </table>
+        </div>
+        <div class="relative overflow-x-auto py-4 overflow-y-auto w-full max-h-[430px] rounded-md">
+            <table id="tabla_logs_basico"
+                class="w-full text-xs text-left rtl:text-right text-gray-600 dark:text-gray-300">
+                <thead class="text-[10px] text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-300">
+
+                    <tr id="tabla-header_basico"></tr>
+                </thead>
+                <tbody id="tabla-body_basico"></tbody>
+            </table>
+        </div>
+
+    </div>
 
 
-</div>
-<table id="tabla-logs" class="w-full text-xs text-left text-gray-600">
-    <thead>
-        <tr id="tabla-header"></tr>
-    </thead>
-    <tbody id="tabla-body"></tbody>
-</table>
+    <!-- Script clásico -->
+    <script>
+        const toggleFilters = document.getElementById("toggleFilters");
+        const filterPanel = document.getElementById("filterPanel");
+        const toggleCategory = document.getElementById("toggleCategory");
+        const categoryList = document.getElementById("categoryList");
+        const arrow = document.getElementById("arrow");
+        const saveView = document.getElementById("saveView");
+
+        function mostrarElementosBasico() {
+            const seccion_avansada = document.getElementById("seccion_avansada");
+            const seccion_basica = document.getElementById("seccion_basica");
+            const header = document.getElementById("tabla-header");
+            const body = document.getElementById("tabla-body");
+
+            // Limpiar anteriores
+            header.innerHTML = "";
+            body.innerHTML = "";
+            seccion_avansada.classList.add("hidden")
+            seccion_basica.classList.remove("hidden")
 
 
+        }
+        function mostrarElementosAvansado() {
+            const seccion_avansada = document.getElementById("seccion_avansada");
+            const seccion_basica = document.getElementById("seccion_basica");
+            const header = document.getElementById("tabla-header");
+            const body = document.getElementById("tabla-body");
 
+            // Limpiar anteriores
+            header.innerHTML = "";
+            body.innerHTML = "";
+            seccion_basica.classList.add("hidden")
+            seccion_avansada.classList.remove("hidden")
+            seleccionado = true;
 
-<!-- Script clásico -->
-<script>
-    const toggleFilters = document.getElementById("toggleFilters");
-    const filterPanel = document.getElementById("filterPanel");
-    const toggleCategory = document.getElementById("toggleCategory");
-    const categoryList = document.getElementById("categoryList");
-    const arrow = document.getElementById("arrow");
-    const saveView = document.getElementById("saveView");
+        }
 
-    function agruparPorCategoria(diccionario, valoresArray) {
-        const resultado = {};
+        function agruparPorCategoria(diccionario, valoresArray) {
+            const resultado = {};
 
-        for (const valor of valoresArray) {
-            for (const [categoria, valores] of Object.entries(diccionario)) {
-                if (valores.includes(valor)) {
-                    if (!resultado[categoria]) {
-                        resultado[categoria] = [];
+            for (const valor of valoresArray) {
+                for (const [categoria, valores] of Object.entries(diccionario)) {
+                    if (valores.includes(valor)) {
+                        if (!resultado[categoria]) {
+                            resultado[categoria] = [];
+                        }
+                        resultado[categoria].push(valor);
+                        break; // rompe para evitar duplicados en varias categorías
                     }
-                    resultado[categoria].push(valor);
-                    break; // rompe para evitar duplicados en varias categorías
                 }
+            }
+
+            return resultado;
+        }
+        function copiarSeleccionados() {
+            const seccion_avansada = document.getElementById("seccion_avansada");
+            console.log(seccion_avansada.classList.contains("hidden"));
+            if (!(seccion_avansada.classList.contains("hidden"))) {
+                const filas = document.querySelectorAll('#tabla_logs tbody tr');
+
+                let textoCopiado = '';
+                filas.forEach(fila => {
+                    const checkbox = fila.querySelector('.checkbox-fila');
+                    if (checkbox && checkbox.checked) {
+                        const celdas = fila.querySelectorAll('td');
+                        let datosFila = [];
+                        for (let i = 1; i < celdas.length; i++) { // Ignora la primera celda (checkbox)
+                            datosFila.push(celdas[i].innerText.trim());
+                        }
+                        textoCopiado += datosFila.join('\t') + '\n';
+                    }
+                });
+
+                if (textoCopiado.trim() === '') {
+                    alert('No hay filas seleccionadas.');
+                    return;
+                }
+
+                // Copiar al portapapeles
+                navigator.clipboard.writeText(textoCopiado)
+                    .then(() => alert('Datos copiados al portapapeles.'))
+                    .catch(err => alert('Error al copiar: ' + err));
+            } else {
+                const filas = document.querySelectorAll('#tabla_logs_basico tbody tr');
+                let textoCopiado = '';
+                filas.forEach(fila => {
+                    const checkbox = fila.querySelector('.checkbox-fila');
+                    if (checkbox && checkbox.checked) {
+                        const celdas = fila.querySelectorAll('td');
+                        let datosFila = [];
+                        for (let i = 1; i < celdas.length; i++) { // Ignora la primera celda (checkbox)
+                            datosFila.push(celdas[i].innerText.trim());
+                        }
+                        textoCopiado += datosFila.join('\t') + '\n';
+                    }
+                });
+
+                if (textoCopiado.trim() === '') {
+                    alert('No hay filas seleccionadas.');
+                    return;
+                }
+
+                // Copiar al portapapeles
+                navigator.clipboard.writeText(textoCopiado)
+                    .then(() => alert('Datos copiados al portapapeles.'))
+                    .catch(err => alert('Error al copiar: ' + err));
             }
         }
 
-        return resultado;
-    }
-
-
-
-    document.getElementById('categoriaSelect').addEventListener('change', function () {
-        const categoriaId = this.value;
-        const categoryList = document.getElementById('categoryList');
-        const select = document.getElementById('categoriaSelect');
-        const valor = select.value; // Obtiene el valor del <option> seleccionado
-        console.log(valor);
-        categoryList.innerHTML = ''; // Limpiar contenido previo
-        if (valor === 'apache_access') {
-            const categorias_access = ['Solicitud', 'Codigo Estado', 'Navegador'];
-            const categoria_solicitud = ['GET', 'POST', 'DELETE', 'OPTIONS'];
-            const categoria_codigo_estado = ['404', '403', '500', '503'];
-            const categoria_navegador = ['Chrome', 'Edge', 'Firefox', 'Safari', 'Opera', 'Internet Explorer'];
-            categorias_access.forEach((categoria, index) => {
-                // Crear título de categoría
-                const contenedor_secion = document.createElement('div');
-                const title = document.createElement('div');
-                title.className = 'font-medium mt-2';
-                title.textContent = categoria;
-                contenedor_secion.className = 'mt-2';
-                contenedor_secion.appendChild(title);
-
-                // Obtener subcategorías según índice
-                let subcategorias = [];
-                if (index === 0) subcategorias = categoria_solicitud;
-                else if (index === 1) subcategorias = categoria_codigo_estado;
-                else if (index === 2) subcategorias = categoria_navegador;
-
-                // Crear checkboxes
-                subcategorias.forEach(sub => {
-                    const label = document.createElement('label');
-                    label.className = 'flex items-center justify-start space-x-2 px-2';
-
-                    const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.name = `filtro_${categoria.toLowerCase().replace(' ', '_')}`;
-                    checkbox.value = sub;
-
-                    label.appendChild(checkbox);
-                    label.appendChild(document.createTextNode(sub));
-                    contenedor_secion.appendChild(label);
-                });
-                categoryList.appendChild(contenedor_secion)
-            });
-
-        } else if (valor === 'apache_error') {
-            const categorias_error = ['Nivel', 'Modulo'];
-            const categoria_nivel = ['emerg', 'alert', 'crit', 'error', 'warn', 'notice', 'info', 'debug', 'access_compat'];
-            const categoria_modulo = ['core', 'ssl', 'authz_core', 'rewrite', 'php7', 'php8', 'mpm_prefork', 'proxy'];
-
-            categorias_error.forEach((categoria, index) => {
-                // Crear título de categoría
-                const contenedor_secion = document.createElement('div');
-                const title = document.createElement('div');
-                title.className = 'font-medium mt-2 flex bg-blue';
-                contenedor_secion.className = ' mt-2 ';
-                title.textContent = categoria;
-
-                contenedor_secion.appendChild(title);
-
-                // Obtener subcategorías según índice
-                let subcategorias = [];
-                if (index === 0) subcategorias = categoria_nivel;
-                else if (index === 1) subcategorias = categoria_modulo;
-
-                // Crear checkboxes
-                subcategorias.forEach(sub => {
-                    const label = document.createElement('label');
-                    label.className = 'flex items-center justify-start space-x-2 px-2';
-
-                    const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.name = `filtro_${categoria.toLowerCase().replace(' ', '_')}`;
-                    checkbox.value = sub;
-
-                    label.appendChild(checkbox);
-                    label.appendChild(document.createTextNode(sub));
-                    contenedor_secion.appendChild(label);
-                });
-                categoryList.appendChild(contenedor_secion);
-            });
-
-        } else if (valor === 'ftp') {
-            const categorias_ftp = ['Tipo accion'];
-            const categoria_accion = ['FTP command', 'FTP response', 'FAIL LOGIN', 'CONNECTED', 'OK LOGIN', 'FAIL DOWNLOAD', 'DENIED'];
-            categorias_ftp.forEach((categoria, index) => {
-                // Crear título de categoría
-                const contenedor_secion = document.createElement('div');
-                const title = document.createElement('div');
-                title.className = 'font-medium mt-2 flex ';
-                contenedor_secion.className = ' mt-2 ';
-                title.textContent = categoria;
-                contenedor_secion.appendChild(title);
-
-                // Obtener subcategorías según índice
-                let subcategorias = [];
-                if (index === 0) subcategorias = categoria_accion;
-
-                // Crear checkboxes
-                subcategorias.forEach(sub => {
-                    const label = document.createElement('label');
-                    label.className = 'flex items-center justify-start space-x-2 px-2';
-
-                    const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.name = `filtro_${categoria.toLowerCase().replace(' ', '_')}`;
-                    checkbox.value = sub;
-
-                    label.appendChild(checkbox);
-                    label.appendChild(document.createTextNode(sub));
-                    contenedor_secion.appendChild(label);
-                });
-                categoryList.appendChild(contenedor_secion);
-            });
-
+        function toggleSeleccion(source) {
+            const checkboxes = document.querySelectorAll('.checkbox-fila');
+            checkboxes.forEach(checkbox => checkbox.checked = source.checked);
         }
 
 
+        document.getElementById('categoriaSelect').addEventListener('change', function () {
+            const categoriaId = this.value;
+            const categoryList = document.getElementById('categoryList');
+            const select = document.getElementById('categoriaSelect');
+            const valor = select.value; // Obtiene el valor del <option> seleccionado
+            console.log(valor);
+            categoryList.innerHTML = ''; // Limpiar contenido previo
+            const seccion_avansada = document.getElementById("seccion_avansada");
+            console.log(seccion_avansada.classList.contains("hidden"));
+            if (!(seccion_avansada.classList.contains("hidden"))) {
+                if (valor === 'apache_access') {
+                    const categorias_access = ['Solicitud', 'Codigo Estado', 'Navegador'];
+                    const categoria_solicitud = ['GET', 'POST', 'DELETE', 'OPTIONS'];
+                    const categoria_codigo_estado = ['404', '403', '500', '503'];
+                    const categoria_navegador = ['Chrome', 'Edge', 'Firefox', 'Safari', 'Opera', 'Internet Explorer'];
+                    categorias_access.forEach((categoria, index) => {
+                        // Crear título de categoría
+                        const contenedor_secion = document.createElement('div');
+                        const title = document.createElement('div');
+                        title.className = 'font-medium mt-2';
+                        title.textContent = categoria;
+                        contenedor_secion.className = 'mt-2';
+                        contenedor_secion.appendChild(title);
 
-    });
+                        // Obtener subcategorías según índice
+                        let subcategorias = [];
+                        if (index === 0) subcategorias = categoria_solicitud;
+                        else if (index === 1) subcategorias = categoria_codigo_estado;
+                        else if (index === 2) subcategorias = categoria_navegador;
 
-    document.getElementById('saveView').addEventListener('click', () => {
+                        // Crear checkboxes
+                        subcategorias.forEach(sub => {
+                            const label = document.createElement('label');
+                            label.className = 'flex items-center justify-start space-x-2 px-2';
 
+                            const checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.name = `filtro_${categoria.toLowerCase().replace(' ', '_')}`;
+                            checkbox.value = sub;
 
-        // Obtener fecha exacta
-        const fecha = document.getElementById('fecha').value;
-        const select_categoria = document.getElementById('categoriaSelect').value;
-        // Obtener rango de fechas
-        const fechaInicio = document.getElementById('fechaInicio').value;
-        const fechaFin = document.getElementById('fechaFin').value;
-        console.log(select_categoria);
-        // Obtener hora
-        const hora = document.getElementById('hora').value;
-        let categorias_selecionadas = {};
-        // Obtener categorías seleccionadas
-        const categoriasSeleccionadas = [];
-        document.querySelectorAll('#categoryList input[type="checkbox"]:checked').forEach(cb => {
-            categoriasSeleccionadas.push(cb.parentElement.textContent.trim());
-        });
-        if (select_categoria === 'apache_access') {
-            const categorias_access = {
-                'Solicitud': ['GET', 'POST', 'DELETE', 'OPTIONS'],
-                'Codigo Estado': ['404', '403', '500', '503'],
-                'Navegador': ['Chrome', 'Edge', 'Firefox', 'Safari', 'Opera', 'Internet Explorer']
-            };
-            categorias_selecionadas = agruparPorCategoria(categorias_access, categoriasSeleccionadas)
-        } else if (select_categoria === 'apache_error') {
-            const categorias_error = {
-                'Nivel': ['emerg', 'alert', 'crit', 'error', 'warn', 'notice', 'info', 'debug', 'access_compat'],
-                'Modulo': ['core', 'ssl', 'authz_core', 'rewrite', 'php7', 'php8', 'mpm_prefork', 'proxy']
-            };
-            categorias_selecionadas = agruparPorCategoria(categorias_error, categoriasSeleccionadas)
-        } else if (select_categoria === 'ftp') {
-            const categorias_ftp = {
-                'Tipo accion': ['FTP command', 'FTP response', 'FAIL LOGIN', 'CONNECTED', 'OK LOGIN', 'FAIL DOWNLOAD', 'DENIED'],
-            };
-            categorias_selecionadas = agruparPorCategoria(categorias_ftp, categoriasSeleccionadas)
-        }
-        // Construir el objeto de datos
-        const filtros = {
-            select_categoria,
-            fecha,
-            fechaInicio,
-            fechaFin,
-            hora,
-            categorias_selecionadas
-        };
-
-        // Mostrar en consola (o puedes enviar al backend)
-        console.log(filtros);
-
-        // Ejemplo de envío al backend con fetch
-        fetch('/api/filtros', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(filtros)
-        })
-            .then(res => res.json())
-            .then(data => {
-                const logs = data.datos_filtrados;
-                const header = document.getElementById("tabla-header");
-                const body = document.getElementById("tabla-body");
-
-                // Limpiar anteriores
-                header.innerHTML = "";
-                body.innerHTML = "";
-
-                if (logs.length > 0) {
-                    // Crear encabezado
-                    Object.keys(logs[0]).forEach(col => {
-                        const th = document.createElement("th");
-                        th.className = "px-3 py-2";
-                        th.textContent = col;
-                        header.appendChild(th);
-                    });
-
-                    // Crear filas
-                    logs.forEach(log => {
-                        const tr = document.createElement("tr");
-                        tr.className = "bg-white border-b hover:bg-gray-50";
-
-                        Object.values(log).forEach(item => {
-                            const td = document.createElement("td");
-                            td.className = "px-3 py-2 whitespace-nowrap";
-                            td.textContent = item;
-                            tr.appendChild(td);
+                            label.appendChild(checkbox);
+                            label.appendChild(document.createTextNode(sub));
+                            contenedor_secion.appendChild(label);
                         });
-
-                        body.appendChild(tr);
+                        categoryList.appendChild(contenedor_secion)
                     });
-                } else {
-                    body.innerHTML = `<tr><td colspan="100%">No se encontraron registros</td></tr>`;
-                }
-            })
-            .catch(err => console.error("Error:", err));
-    });
-</script>
 
-{% endblock %}
+                } else if (valor === 'apache_error') {
+                    const categorias_error = ['Nivel', 'Modulo'];
+                    const categoria_nivel = ['emerg', 'alert', 'crit', 'error', 'warn', 'notice', 'info', 'debug', 'access_compat'];
+                    const categoria_modulo = ['core', 'ssl', 'authz_core', 'rewrite', 'php7', 'php8', 'mpm_prefork', 'proxy'];
+
+                    categorias_error.forEach((categoria, index) => {
+                        // Crear título de categoría
+                        const contenedor_secion = document.createElement('div');
+                        const title = document.createElement('div');
+                        title.className = 'font-medium mt-2 flex bg-blue';
+                        contenedor_secion.className = ' mt-2 ';
+                        title.textContent = categoria;
+
+                        contenedor_secion.appendChild(title);
+
+                        // Obtener subcategorías según índice
+                        let subcategorias = [];
+                        if (index === 0) subcategorias = categoria_nivel;
+                        else if (index === 1) subcategorias = categoria_modulo;
+
+                        // Crear checkboxes
+                        subcategorias.forEach(sub => {
+                            const label = document.createElement('label');
+                            label.className = 'flex items-center justify-start space-x-2 px-2';
+
+                            const checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.name = `filtro_${categoria.toLowerCase().replace(' ', '_')}`;
+                            checkbox.value = sub;
+
+                            label.appendChild(checkbox);
+                            label.appendChild(document.createTextNode(sub));
+                            contenedor_secion.appendChild(label);
+                        });
+                        categoryList.appendChild(contenedor_secion);
+                    });
+
+                } else if (valor === 'ftp') {
+                    const categorias_ftp = ['Tipo accion'];
+                    const categoria_accion = ['FTP command', 'FTP response', 'FAIL LOGIN', 'CONNECT', 'OK LOGIN', 'FAIL UPLOAD', 'FAIL DOWNLOAD', 'DENIED'];
+                    categorias_ftp.forEach((categoria, index) => {
+                        // Crear título de categoría
+                        const contenedor_secion = document.createElement('div');
+                        const title = document.createElement('div');
+                        title.className = 'font-medium mt-2 flex ';
+                        contenedor_secion.className = ' mt-2 ';
+                        title.textContent = categoria;
+                        contenedor_secion.appendChild(title);
+
+                        // Obtener subcategorías según índice
+                        let subcategorias = [];
+                        if (index === 0) subcategorias = categoria_accion;
+
+                        // Crear checkboxes
+                        subcategorias.forEach(sub => {
+                            const label = document.createElement('label');
+                            label.className = 'flex items-center justify-start space-x-2 px-2';
+
+                            const checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.name = `filtro_${categoria.toLowerCase().replace(' ', '_')}`;
+                            checkbox.value = sub;
+
+                            label.appendChild(checkbox);
+                            label.appendChild(document.createTextNode(sub));
+                            contenedor_secion.appendChild(label);
+                        });
+                        categoryList.appendChild(contenedor_secion);
+                    });
+
+                }
+
+            }
+        });
+
+        document.getElementById('saveView').addEventListener('click', () => {
+            const seccion_avansada = document.getElementById("seccion_avansada");
+            console.log(seccion_avansada.classList.contains("hidden"));
+            if (!(seccion_avansada.classList.contains("hidden"))) {
+
+                // Obtener fecha exacta
+                const fecha = document.getElementById('fecha').value;
+                const select_categoria = document.getElementById('categoriaSelect').value;
+                // Obtener rango de fechas
+                const fechaInicio = document.getElementById('fechaInicio').value;
+                const fechaFin = document.getElementById('fechaFin').value;
+                console.log(select_categoria);
+                // Obtener hora
+                const hora = document.getElementById('hora').value;
+                let categorias_selecionadas = {};
+                // Obtener categorías seleccionadas
+                const categoriasSeleccionadas = [];
+                document.querySelectorAll('#categoryList input[type="checkbox"]:checked').forEach(cb => {
+                    categoriasSeleccionadas.push(cb.parentElement.textContent.trim());
+                });
+                if (select_categoria === 'apache_access') {
+                    const categorias_access = {
+                        'Solicitud': ['GET', 'POST', 'DELETE', 'OPTIONS'],
+                        'Codigo Estado': ['404', '403', '500', '503'],
+                        'Navegador': ['Chrome', 'Edge', 'Firefox', 'Safari', 'Opera', 'Internet Explorer']
+                    };
+                    categorias_selecionadas = agruparPorCategoria(categorias_access, categoriasSeleccionadas)
+                } else if (select_categoria === 'apache_error') {
+                    const categorias_error = {
+                        'Nivel': ['emerg', 'alert', 'crit', 'error', 'warn', 'notice', 'info', 'debug', 'access_compat'],
+                        'Modulo': ['core', 'ssl', 'authz_core', 'rewrite', 'php7', 'php8', 'mpm_prefork', 'proxy']
+                    };
+                    categorias_selecionadas = agruparPorCategoria(categorias_error, categoriasSeleccionadas)
+                } else if (select_categoria === 'ftp') {
+                    const categorias_ftp = {
+                        'Tipo accion': ['FTP command', 'FTP response', 'FAIL LOGIN', 'CONNECT', 'OK LOGIN', 'FAIL UPLOAD', 'FAIL DOWNLOAD', 'DENIED'],
+                    };
+                    categorias_selecionadas = agruparPorCategoria(categorias_ftp, categoriasSeleccionadas)
+                }
+                // Construir el objeto de datos
+                const filtros = {
+                    select_categoria,
+                    fecha,
+                    fechaInicio,
+                    fechaFin,
+                    hora,
+                    categorias_selecionadas
+                };
+
+                // Mostrar en consola (o puedes enviar al backend)
+                console.log(filtros);
+
+                // Ejemplo de envío al backend con fetch
+                fetch('/api/filtros', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(filtros)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        const logs = data.datos_filtrados;
+                        const header = document.getElementById("tabla-header");
+                        const body = document.getElementById("tabla-body");
+
+                        // Limpiar anteriores
+                        header.innerHTML = "";
+                        body.innerHTML = "";
+
+
+                        if (logs.length > 0) {
+                            // Crear encabezado
+                            const th1 = document.createElement("th");
+                            th1.className = "px-3 py-2";
+                            header.appendChild(th1);
+                            Object.keys(logs[0]).forEach(col => {
+                                const th = document.createElement("th");
+                                th.className = "px-3 py-2";
+                                th.textContent = col;
+                                header.appendChild(th);
+                            });
+
+                            // Crear filas
+                            logs.forEach(log => {
+                                const tr = document.createElement("tr");
+                                tr.className = "fila bg-white border-b dark:bg-gray-800 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer";
+                                const td1 = document.createElement("td");
+                                const checkbox = document.createElement("input");
+                                checkbox.type = "checkbox";         // Establece tipo checkbox
+                                checkbox.id = "checkbox_copy";
+                                checkbox.className = "checkbox-fila"
+                                td1.appendChild(checkbox);
+                                tr.appendChild(td1);
+                                Object.values(log).forEach(item => {
+                                    const td = document.createElement("td");
+                                    td.className = "px-3 py-2 whitespace-nowrap";
+                                    td.textContent = item;
+                                    tr.appendChild(td);
+                                });
+
+                                body.appendChild(tr);
+                            });
+                        } else {
+                            body.innerHTML = `<tr><td colspan="100%">No se encontraron registros</td></tr>`;
+                        }
+                    })
+                    .catch(err => console.error("Error:", err));
+            } else {
+                const text_buscador = document.getElementById("default-search").value;
+                const select_categoria = document.getElementById('categoriaSelect').value;
+                const filtros = {
+                    select_categoria,
+                    text_buscador
+                };
+                fetch('/api/buscador', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(filtros)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        const logs = data.datos_filtrados;
+                        const header = document.getElementById("tabla-header_basico");
+                        const body = document.getElementById("tabla-body_basico");
+
+                        // Limpiar anteriores
+                        header.innerHTML = "";
+                        body.innerHTML = "";
+
+                        if (logs.length > 0) {
+                            // Crear encabezado
+                            const th1 = document.createElement("th");
+                            th1.className = "px-3 py-2";
+                            header.appendChild(th1);
+                            Object.keys(logs[0]).forEach(col => {
+
+                                const th = document.createElement("th");
+
+                                th.className = "px-3 py-2";
+                                th.textContent = col;
+
+                                header.appendChild(th);
+                            });
+
+                            // Crear filas
+                            logs.forEach(log => {
+                                const tr = document.createElement("tr");
+
+                                tr.className = "fila bg-white border-b dark:bg-gray-800 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer";
+                                const td1 = document.createElement("td");
+                                const checkbox = document.createElement("input");
+                                checkbox.type = "checkbox";         // Establece tipo checkbox
+                                checkbox.id = "checkbox_copy";
+                                checkbox.className = "checkbox-fila";
+                                td1.appendChild(checkbox);
+                                tr.appendChild(td1);
+                                Object.values(log).forEach(item => {
+                                    const td = document.createElement("td");
+                                    td.className = "px-3 py-2 whitespace-nowrap";
+                                    td.textContent = item;
+                                    tr.appendChild(td);
+                                });
+
+                                body.appendChild(tr);
+                            });
+                        } else {
+                            body.innerHTML = `<tr><td colspan="100%">No se encontraron registros</td></tr>`;
+                        }
+                    })
+                    .catch(err => console.error("Error:", err));
+
+            }
+        });
+
+        document.getElementById('boton_buscar').addEventListener('click', () => {
+            const seccion_basica = document.getElementById("seccion_basica");
+            console.log(seccion_basica.classList.contains("hidden"));
+            if (!(seccion_basica.classList.contains("hidden"))) {
+                const text_buscador = document.getElementById("default-search").value;
+                const select_categoria = document.getElementById('categoriaSelect').value;
+                const filtros = {
+                    select_categoria,
+                    text_buscador
+                };
+
+
+                fetch('/api/buscador', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(filtros)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        const logs = data.datos_filtrados;
+                        const header = document.getElementById("tabla-header_basico");
+                        const body = document.getElementById("tabla-body_basico");
+
+                        // Limpiar anteriores
+                        header.innerHTML = "";
+                        body.innerHTML = "";
+
+                        if (logs.length > 0) {
+                            // Crear encabezado
+                            const th1 = document.createElement("th");
+                            th1.className = "px-3 py-2";
+                            header.appendChild(th1);
+                            Object.keys(logs[0]).forEach(col => {
+
+                                const th = document.createElement("th");
+
+                                th.className = "px-3 py-2";
+                                th.textContent = col;
+
+                                header.appendChild(th);
+                            });
+
+                            // Crear filas
+                            logs.forEach(log => {
+                                const tr = document.createElement("tr");
+
+                                tr.className = "fila bg-white border-b dark:bg-gray-800 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer";
+                                const td1 = document.createElement("td");
+                                const checkbox = document.createElement("input");
+                                checkbox.type = "checkbox";         // Establece tipo checkbox
+                                checkbox.id = "checkbox_copy";
+                                checkbox.className = "checkbox-fila"
+                                td1.appendChild(checkbox);
+                                tr.appendChild(td1);
+                                Object.values(log).forEach(item => {
+                                    const td = document.createElement("td");
+                                    td.className = "px-3 py-2 whitespace-nowrap";
+                                    td.textContent = item;
+                                    tr.appendChild(td);
+                                });
+
+                                body.appendChild(tr);
+                            });
+                        } else {
+                            body.innerHTML = `<tr><td colspan="100%">No se encontraron registros</td></tr>`;
+                        }
+                    })
+                    .catch(err => console.error("Error:", err));
+
+            }
+        });
+
+
+    </script>
+
+    {% endblock %}

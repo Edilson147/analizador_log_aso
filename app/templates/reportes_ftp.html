@@ -1,0 +1,336 @@
+{% extends "base.html" %}
+
+{% block title %}Página Principal{% endblock %}
+
+{% block content %}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background-color: #f5f5f5;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .nav-tabs {
+        display: flex;
+        background: white;
+        border-radius: 8px 8px 0 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 0;
+    }
+
+    .nav-tab {
+        flex: 1;
+        padding: 15px 20px;
+        text-align: center;
+        background: #f8f9fa;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        color: #666;
+        transition: all 0.3s ease;
+    }
+
+    .nav-tab:first-child {
+        border-radius: 8px 0 0 0;
+    }
+
+    .nav-tab:last-child {
+        border-radius: 0 8px 0 0;
+    }
+
+    .nav-tab.active {
+        background: white;
+        color: #333;
+        border-bottom: 2px solid #007bff;
+    }
+
+    .dashboard {
+        background: white;
+        border-radius: 0 0 8px 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-bottom: 30px;
+    }
+
+    .chart-container {
+        background: #fafafa;
+        border-radius: 8px;
+        padding: 20px;
+        border: 1px solid #e9ecef;
+    }
+
+    .chart-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .chart-wrapper {
+        position: relative;
+        height: 300px;
+    }
+
+    .users-container {
+        background: #fafafa;
+        border-radius: 8px;
+        padding: 20px;
+        border: 1px solid #e9ecef;
+    }
+
+    .user-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .user-item:last-child {
+        border-bottom: none;
+    }
+
+    .user-bar {
+        height: 20px;
+        border-radius: 4px;
+        margin-left: 15px;
+        flex: 1;
+        max-width: 200px;
+    }
+
+    .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        grid-column: span 2;
+    }
+
+    .summary-card {
+        background: #fafafa;
+        border-radius: 8px;
+        padding: 20px;
+        border: 1px solid #e9ecef;
+        text-align: center;
+    }
+
+    .summary-card h3 {
+        font-size: 12px;
+        font-weight: 500;
+        color: #666;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 10px;
+    }
+
+    .summary-card .number {
+        font-size: 32px;
+        font-weight: 700;
+        color: #333;
+    }
+
+    .summary-card.transfers .number {
+        color: #28a745;
+    }
+
+    .summary-card.uploads .number {
+        color: #17a2b8;
+    }
+
+    .summary-card.downloads .number {
+        color: #007bff;
+    }
+
+    .summary-card.failed .number {
+        color: #dc3545;
+    }
+
+    @media (max-width: 768px) {
+        .grid {
+            grid-template-columns: 1fr;
+        }
+
+        .summary-grid {
+            grid-template-columns: repeat(2, 1fr);
+            grid-column: span 1;
+        }
+
+        .nav-tab {
+            padding: 12px 15px;
+            font-size: 12px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .summary-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+<div class="container">
+    <div class="nav-tabs">
+        <a href="/reportes_apache" class="nav-tab " onclick="switchTab('apache')">Apache Logs</a>
+        <a href="/reportes_ftp" class="nav-tab active" onclick="switchTab('ftp')">FTP Logs</a>
+    </div>
+
+    <div class="dashboard">
+        <div class="grid">
+            <!-- FTP Event Types Chart -->
+            <div class="chart-container">
+                <h3 class="chart-title">FTP Event Types</h3>
+                <div class="chart-wrapper">
+                    <canvas id="ftpEventTypesChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Top FTP Users -->
+            <div class="users-container">
+                <h3 class="chart-title">Top FTP Users</h3>
+                <div id="topFtpUsers"></div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+    fetch("/api/reportes_ftp")
+        .then(res => res.json())
+        .then(data => {
+            const actionColors = ['#4FC3F7', '#9C27B0', '#4DB6AC', '#BA68C8', '#FFB74D'];
+            const userColors = ['#ff6b6b', '#ffd93d', '#4ecdc4', '#6bcf7f', '#45b7d1', '#96ceb4', '#ffeaa7', '#dda0dd', '#98d8c8', '#ff7675'];
+
+            // Tipos de acciones
+            const ftpEventTypesData = {
+                labels: data.tipos_accion.map(e => e.tipo_accion),
+                data: data.tipos_accion.map(e => e.cantidad),
+                colors: actionColors.slice(0, data.tipos_accion.length)
+            };
+
+            // Top usuarios
+            const topFtpUsersData = data.top_usuarios.map((e, i) => ({
+                user: e.usuario,
+                actions: e.acciones,
+                color: userColors[i % userColors.length]
+            }));
+
+            // Puedes usar estas variables para graficar con Chart.js u otro
+            console.log({ ftpEventTypesData, topFtpUsersData });
+            // Initialize charts
+            function initCharts() {
+                // FTP Event Types Chart
+                const eventTypesCtx = document.getElementById('ftpEventTypesChart').getContext('2d');
+                new Chart(eventTypesCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ftpEventTypesData.labels,
+                        datasets: [{
+                            data: ftpEventTypesData.data,
+                            backgroundColor: ftpEventTypesData.colors,
+                            borderWidth: 0,
+                            hoverBorderWidth: 2,
+                            hoverBorderColor: '#fff'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: {
+                                    usePointStyle: true,
+                                    padding: 15,
+                                    font: {
+                                        size: 12
+                                    }
+                                }
+                            }
+                        },
+                        cutout: '40%'
+                    }
+                });
+            }
+
+            // Populate top FTP users
+            function populateTopFtpUsers() {
+                const container = document.getElementById('topFtpUsers');
+                const maxActions = Math.max(...topFtpUsersData.map(u => u.actions));
+
+                topFtpUsersData.forEach(user => {
+                    const item = document.createElement('div');
+                    item.className = 'user-item';
+
+                    const percentage = (user.actions / maxActions) * 100;
+
+                    item.innerHTML = `
+                    <span style="font-family: monospace; font-weight: 500;">${user.user}</span>
+                    <div class="user-bar" style="background-color: ${user.color}; width: ${percentage}%"></div>
+                    <span style="margin-left: 10px; font-weight: 600; font-size: 14px;">${user.actions}</span>
+                `;
+
+                    container.appendChild(item);
+                });
+            }
+
+            // Tab switching function
+            function switchTab(tab) {
+                const tabs = document.querySelectorAll('.nav-tab');
+                tabs.forEach(t => t.classList.remove('active'));
+
+                const activeTab = Array.from(tabs).find(t =>
+                    t.textContent.toLowerCase().includes(tab)
+                );
+                if (activeTab) {
+                    activeTab.classList.add('active');
+                }
+            }
+
+            // Add counter animation
+            function animateCounters() {
+                const counters = document.querySelectorAll('.number');
+                counters.forEach(counter => {
+                    const target = parseInt(counter.textContent);
+                    const increment = target / 50;
+                    let current = 0;
+
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            counter.textContent = target.toLocaleString();
+                            clearInterval(timer);
+                        } else {
+                            counter.textContent = Math.floor(current).toLocaleString();
+                        }
+                    }, 30);
+                });
+            }
+            initCharts();
+            populateTopFtpUsers();
+
+            // Add a small delay for the animation effect
+            setTimeout(() => {
+                animateCounters();
+            }, 500);
+
+        });
+
+</script>
+{% endblock %}

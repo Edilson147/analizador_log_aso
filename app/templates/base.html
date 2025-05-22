@@ -5,13 +5,14 @@
   <title>{% block title %}Mi App{% endblock %}</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
 
 <body>
 
   <!-- Encabezado superior -->
   <div class="flex items-center justify-between px-6 py-4 bg-gray-100">
-    <h1 class="text-2xl font-bold text-black">Log Analysis System</h1>
+    <h1 class="text-2xl font-bold text-black">Sistema analizador de logs</h1>
 
   </div>
 
@@ -19,14 +20,11 @@
   <nav class="flex justify-between space-x-12 px-4 py-4 bg-gray-100 border-t border-b border-gray-300">
     <a href="/"
       class="px-4 py-2 w-80 rounded border-2 hover:border-gray-300 border-gray-100 hover:bg-white  text-black font-medium shadow-sm">Log
-      Viewer
-      de logs</a>
+      Ver logs</a>
     <a href="/ver_logs"
-      class="px-4 w-80 py-2 rounded border-2 hover:border-gray-300 border-gray-100  hover:bg-white  font-medium shadow-sm">Search</a>
-    <a href="#"
-      class="px-4 w-80 py-2 rounded border-2 hover:border-gray-300 border-gray-100 hover:bg-white  font-medium shadow-sm">Alerts</a>
-    <a href="#"
-      class="px-4 w-80 py-2 rounded border-2 hover:border-gray-300 border-gray-100 hover:bg-white  font-medium shadow-sm">Reports</a>
+      class="px-4 w-80 py-2 rounded border-2 hover:border-gray-300 border-gray-100  hover:bg-white  font-medium shadow-sm">Buscar</a>
+    <a href="/reportes_apache"
+      class="px-4 w-80 py-2 rounded border-2 hover:border-gray-300 border-gray-100 hover:bg-white  font-medium shadow-sm">Reportes</a>
   </nav>
   <main>
     {% block content %}{% endblock %}
