@@ -46,18 +46,33 @@ MYSQL_DB = 'logdb'
 
 ```
 log_analyzer/
-├── app/
+├── app
 │   ├── __init__.py
-│   ├── models.py
-│   ├── routes.py
 │   ├── log_parser.py
-│   └── templates/
-│       └── index.html
-├── static/
+│   ├── models.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-36.pyc
+│   │   ├── log_parser.cpython-36.pyc
+│   │   ├── models.cpython-36.pyc
+│   │   └── routes.cpython-36.pyc
+│   ├── routes.py
+│   ├── static
+│   │   └── styles.css
+│   └── templates
+│       ├── base.html
+│       ├── index.html
+│       ├── logs.html
+│       ├── reportes_apache.html
+│       ├── reportes_ftp.html
+│       └── ver_logs.html
 ├── config.py
-├── run.py
+├── __pycache__
+│   └── config.cpython-36.pyc
+├── README.md
 ├── requirements.txt
-└── README.md
+├── run.py
+└── static
+    └── uploads
 ```
 
 ## Ejecución

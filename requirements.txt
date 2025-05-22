@@ -1,0 +1,10 @@
+# requirements.txt
+
+# Framework web
+Flask==2.3.3
+
+# Conector para MySQL/MariaDB en Flask
+flask-mysqldb==1.0.1
+
+# Dependencias internas de flask-mysqldb
+mysqlclient==2.2.0
